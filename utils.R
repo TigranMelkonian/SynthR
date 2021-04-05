@@ -1,17 +1,17 @@
 # Libraries & Packages
-library(readr)
-library(tuneR)
-library(e1071)
-library(dplyr)
-library(signal)
-library(matlib)
-library(pracma)
-library(phonTools)
+ library(readr)
+ library(tuneR)
+ library(e1071)
+ library(dplyr)
+ library(signal)
+ library(phonTools)
+ library(audio)
+ library(seewave)
 
 # Set working directory and data (sample audio) path
 WD <- getwd()
 AUDIO_PATH <- paste0(WD, "/sample_audio/")
-
+SYNTH_AUDIO_PATH <- paste0(WD,"/www/synthSoundWave.wav")
 
 ###########################################################################
 #                          - audioPitchSHift -
@@ -107,7 +107,7 @@ audioPitchShift <- function(audioInpt, winSize, step) {
   xvec <- c(0:(length(outputTimeStretched) - 1))
   yvec <- c(outputTimeStretched)
   xi <- c(seq(0, length(outputTimeStretched) - 1, alpha))
-  outputTime <- interp1(xvec, yvec, xi)
+  outputTime <- approx(xvec, yvec, xi, method = "linear")$y
 
   # Return the result
   outputVector <- outputTime

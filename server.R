@@ -10,15 +10,21 @@ server <- function(input, output, session) {
 
     # Synthasize Frequency Shifted Audio
     y <<- audioPitchShift(x, 1024, input$freq_shift_inpt)
-    # Play Synthasized Audio
-    audio::play(y, rate = inpt_audio@samp.rate)
+    # convert Synthasized Audio to wav
+    synth_wave <- Wave(left = y, samp.rate = inpt_audio@samp.rate, bit = inpt_audio@bit)
+    #save wav file
+    savewav(synth_wave, filename = SYNTH_AUDIO_PATH)
+    #hacky play audio
+    insertUI(selector = "#synth_btn",
+             where = "beforeBegin",
+             ui = tags$audio(src = "synthSoundWave.wav", type = "audio/wav", autoplay = TRUE, controls = NA, style="display:none;")
+    )
   })
   
   
   # Produce plot of audio sample before and after being synthesized
   observeEvent(input$synth_btn, {
-    Sys.sleep(length(c(x)) / inpt_audio@samp.rate) # wait for audio to finish playing before starting to plot
-    
+
     # Raw Audio Input Plot
     data_x <- data_frame(val = c(x))
     output$rawAudioPlot <- renderPlotly({
