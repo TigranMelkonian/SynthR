@@ -1,4 +1,4 @@
-<div align="center"><h1>SYNTHR</h1></div>
+<div align="center"><h1><a href="Intended hyperlink">![Name of image](direct link to image)</a></h1></div>
 
 ## FREQUENCY SHIFTING
 
