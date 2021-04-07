@@ -1,4 +1,4 @@
-<div align="center"># SYNTHR</div>
+<div align="center"><h1>YNTHR</h1></div>
 
 ## FREQUENCY SHIFTING
 
